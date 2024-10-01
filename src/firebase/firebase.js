@@ -1,7 +1,9 @@
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from "firebase/analytics";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth'; // Import getAuth for authentication
+import { getAnalytics } from 'firebase/analytics';
+import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC1mUSnoAU56SpLnxMDLIW6-bDK5orpgrw",
   authDomain: "ramschroyal.firebaseapp.com",
@@ -15,13 +17,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app); // You may not need this if you're not using analytics
+const analytics = getAnalytics(app);  // Optional: can be removed if not used
+
+// Initialize Auth
 const auth = getAuth(app);
-console.log("Works")
-// Function to handle sign in
-function signInWithGoogle() {
+
+// Function to handle Google Sign-in
+export function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
+  return signInWithPopup(auth, provider)
     .then((result) => {
       console.log('User signed in:', result.user);
     })
@@ -30,10 +34,10 @@ function signInWithGoogle() {
     });
 }
 
-// Function to check authentication state
-function onAuthChange(callback) {
-  onAuthStateChanged(auth, callback);
+// Function to check for Auth state change
+export function onAuthChange(callback) {
+  return onAuthStateChanged(auth, callback);
 }
-
-
-//signInWithGoogle()
+console.log("Works")
+// Export the auth object
+export { auth };
