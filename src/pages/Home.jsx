@@ -4,20 +4,22 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="text-center">
-      <h1 className="text-5xl text-casinoGold font-pixel mb-8">
-        Welcome to Pixel Casino
-      </h1>
+    <div className="text-center font-pixel">
+      <h1 className="text-5xl text-casinoGold mb-8">Ramsch Royal</h1>
       <div className="space-y-4">
         <h2 className="text-3xl text-casinoGold">Home Page</h2>
-        <Link to="/login" className="text-lg text-casinoGold underline block">
-          Go to Login
+        <Link
+          to="/login"
+          className="text-sm  bg-green-500 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center w-36 h-12 rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md m-8"
+        >
+          Login
         </Link>
+
         <Link
           to="/dashboard"
-          className="text-lg text-casinoGold underline block"
+          className="text-sm  bg-green-500 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center w-36 h-12 rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md m-8"
         >
-          Go to Dashboard (Protected)
+          Dashboard
         </Link>
       </div>
     </div>
