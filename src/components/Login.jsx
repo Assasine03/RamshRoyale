@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { auth, signInAnonymouslyUser } from "../firebase/firebase"; // Import anonymous sign-in function
 
 // Validation schema using yup
 const schema = yup.object().shape({
@@ -46,6 +46,11 @@ const Login = () => {
     }
   };
 
+  // Anonymous sign-in handler
+  const handleAnonymousSignIn = () => {
+    signInAnonymouslyUser();
+  };
+
   return (
     <div>
       <h2>Login</h2>
@@ -62,6 +67,11 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+
+      <hr />
+
+      <h2>Or Sign In Anonymously</h2>
+      <button onClick={handleAnonymousSignIn}>Sign in Anonymously</button>
     </div>
   );
 };
