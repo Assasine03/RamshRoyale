@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { initializeApp } from 'firebase/app';
+import { useState } from "react";
+
+import "./App.css";
+import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { GoogleAuthProvider } from 'firebase/auth/web-extension';
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
+import Login from "./components/Login";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  
+  <>
+    <Login />;
+  </>;
 
   /*return (
     <>
@@ -37,4 +37,4 @@ function App() {
   )*/
 }
 
-export default App
+export default App;
