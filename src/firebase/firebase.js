@@ -23,7 +23,7 @@ const analytics = getAnalytics(app);  // Optional: can be removed if not used
 const auth = getAuth(app);
 
 // Function to handle Google Sign-in
-export function signInWithGoogle() {
+function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
   return signInWithPopup(auth, provider)
     .then((result) => {
@@ -33,6 +33,8 @@ export function signInWithGoogle() {
       console.error('Error during sign in:', error);
     });
 }
+
+signInWithGoogle()
 
 // Function to check for Auth state change
 export function onAuthChange(callback) {
