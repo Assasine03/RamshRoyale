@@ -16,6 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
+<<<<<<< Updated upstream
 // Email/Password Sign-in function
 export const signInWithEmailPassword = async (email, password) => {
   try {
@@ -47,6 +48,19 @@ export const signOutUser = async () => {
     console.log("User signed out successfully");
   } catch (error) {
     console.error("Error during sign out:", error);
+    throw error;
+  }
+};
+
+// Google Sign-in function (optional, in case you want to add this in the future)
+export const signInWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    console.log("User signed in with Google:", result.user);
+    return result.user;
+  } catch (error) {
+    console.error("Error during Google sign in:", error);
     throw error;
   }
 };
