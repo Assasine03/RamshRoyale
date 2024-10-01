@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import "./App.css";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { GoogleAuthProvider } from "firebase/auth/web-extension";
