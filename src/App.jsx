@@ -1,22 +1,28 @@
 // App.jsx
 import React from "react";
-import { Routes, Route } from "react-router-dom"; // Import Routes and Route for defining paths
-import Home from "./pages/Home"; // Home component (Casino themed)
-import Login from "./components/Login"; // Login component
-import Dashboard from "./pages/Dashboard"; // Dashboard component (Protected)
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
-    <div className="App">
-      {/* Define routes for your application */}
-      <Routes>
-        <Route path="/" element={<Home />} /> {/* Home route */}
-        <Route path="/login" element={<Login />} /> {/* Login route */}
-        <Route path="/dashboard" element={<Dashboard />} />{" "}
-        {/* Protected Dashboard route */}
-      </Routes>
+    <div className="relative min-h-screen flex items-center justify-center">
+      {/* Background Image */}
+      <img
+        src="/images/table.png"
+        alt="Casino Table Background"
+        className="absolute inset-0 w-full h-full object-contain z-0"
+      />
 
-      <img src="" alt="" />
+      {/* Overlay Content */}
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
     </div>
   );
 };
