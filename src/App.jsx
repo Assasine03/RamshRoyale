@@ -1,64 +1,29 @@
-// App.js
-import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, signOutUser } from "./firebase/firebase"; // Import Firebase auth and sign-out function
+// App.jsx
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./components/Login";
+import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 const App = () => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    // Listen for auth state changes
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user); // User is logged in
-      } else {
-        setUser(null); // User is logged out
-      }
-    });
-
-    // Clean up the listener when the component is unmounted
-    return () => unsubscribe();
-  }, []);
-
-  // Handle logout
-  const handleLogout = async () => {
-    try {
-      await signOutUser(); // Sign out the user
-      console.log("User logged out");
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
-  };
-
   return (
-    <Router>
-      <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+    <div className="relative min-h-screen flex items-center justify-center">
+      {/* Background Image */}
+      <img
+        src="/images/table.png"
+        alt="Casino Table Background"
+        className="absolute inset-0 w-full h-full object-contain z-0"
+      />
 
-        {/* Protected route: Only accessible if user is logged in */}
-        <Route
-          path="/dashboard"
-          element={
-            user ? (
-              <Dashboard user={user} onLogout={handleLogout} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-      </Routes>
-    </Router>
+      {/* Overlay Content */}
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
+    </div>
   );
 };
 

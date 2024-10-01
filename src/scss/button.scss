@@ -1,0 +1,40 @@
+@use "sass:math"; // Import the math module
+
+$width: 9em; // Width for the oval shape
+$height: 3em; // Height for the oval shape
+$incolor: green;
+$outcolor: #fff;
+$bdrwidth: 8px; // Border width
+$time: 0.15s;
+
+.chip-button {
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: $width;
+  height: $height;
+  font-size: 1.5em; // Adjusted font size
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  color: $outcolor;
+  background: $incolor;
+  border: $bdrwidth dashed $outcolor;
+  border-radius: math.div($height, 2); // Oval shape with rounded corners
+  transition: all $time ease; // Smooth transition for all effects
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  margin: 2em auto;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1); // Slightly increase size on hover
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7); // Enhance shadow on hover
+  }
+
+  &:active {
+    transform: scale(0.95); // Slightly shrink when clicked
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); // Reduce shadow when clicked
+  }
+}
