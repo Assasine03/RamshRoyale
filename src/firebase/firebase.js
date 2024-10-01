@@ -23,6 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app); // Export the auth object for use in other files
 
+<<<<<<< Updated upstream
 // Email/Password Sign-in function
 export const signInWithEmailPassword = async (email, password) => {
   try {
@@ -60,6 +61,13 @@ export const signOutUser = async () => {
 
 // Google Sign-in function (optional, in case you want to add this in the future)
 export const signInWithGoogle = async () => {
+=======
+// Initialize Auth
+const auth = getAuth(app);
+console.log(app)
+// Function to handle Google Sign-in
+function signInWithGoogle() {
+>>>>>>> Stashed changes
   const provider = new GoogleAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
