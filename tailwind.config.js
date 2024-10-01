@@ -1,6 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [],
+// tailwind.config.js
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}", // Ensure Tailwind is scanning your React files
+  ],
   theme: {
     extend: {
       colors: {
@@ -8,10 +10,9 @@ export default {
         casinoGold: '#ffd700',
       },
       fontFamily: {
-        pixel: ['Press Start 2P', 'cursive'], 
+        pixel: ['Press Start 2P', 'cursive'], // Add the pixel font
       },
     },
   },
   plugins: [],
-}
-
+};
