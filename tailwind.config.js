@@ -2,7 +2,15 @@
 export default {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        casinoGreen: '#0d5901',
+        casinoGold: '#ffd700',
+      },
+      fontFamily: {
+        pixel: ['Press Start 2P', 'cursive'], 
+      },
+    },
   },
   plugins: [],
 }

@@ -1,15 +1,8 @@
 // firebase.js
 import { initializeApp } from 'firebase/app';
-import { 
-  getAuth, 
-  signInWithEmailAndPassword, 
-  signInAnonymously, 
-  signOut, 
-  GoogleAuthProvider, 
-  signInWithPopup 
-} from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signInAnonymously, signOut } from 'firebase/auth';
 
-// Firebase configuration (replace with your Firebase project credentials)
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC1mUSnoAU56SpLnxMDLIW6-bDK5orpgrw",
   authDomain: "ramschroyal.firebaseapp.com",
@@ -19,9 +12,9 @@ const firebaseConfig = {
   appId: "1:407442902464:web:6d2db255534bbcd092cc25",
 };
 
-// Initialize Firebase app
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app); // Export the auth object for use in other files
+export const auth = getAuth(app);
 
 // Email/Password Sign-in function
 export const signInWithEmailPassword = async (email, password) => {
@@ -47,26 +40,13 @@ export const signInAnonymouslyUser = async () => {
   }
 };
 
-// Sign-out function (optional)
+// Sign-out function
 export const signOutUser = async () => {
   try {
     await signOut(auth);
     console.log("User signed out successfully");
   } catch (error) {
     console.error("Error during sign out:", error);
-    throw error;
-  }
-};
-
-// Google Sign-in function (optional, in case you want to add this in the future)
-export const signInWithGoogle = async () => {
-  const provider = new GoogleAuthProvider();
-  try {
-    const result = await signInWithPopup(auth, provider);
-    console.log("User signed in with Google:", result.user);
-    return result.user;
-  } catch (error) {
-    console.error("Error during Google sign in:", error);
     throw error;
   }
 };

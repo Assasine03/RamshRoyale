@@ -1,10 +1,13 @@
-// Login.js
+// components/Login.js
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, signInAnonymouslyUser } from "../firebase/firebase"; // Import anonymous sign-in function
+import {
+  signInWithEmailPassword,
+  signInAnonymouslyUser,
+} from "../firebase/firebase";
+import { useNavigate } from "react-router-dom";
 
 // Validation schema using yup
 const schema = yup.object().shape({
@@ -19,6 +22,7 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -27,28 +31,29 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
+  // Handle email/password login
   const onSubmit = async (data) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
+      const userCredential = await signInWithEmailPassword(
         data.email,
         data.password
       );
       console.log("Logged in successfully:", userCredential);
+      navigate("/dashboard"); // Redirect to dashboard after successful login
     } catch (error) {
-      if (error.code === "auth/wrong-password") {
-        console.error("Wrong password");
-      } else if (error.code === "auth/user-not-found") {
-        console.error("User not found");
-      } else {
-        console.error("Login failed:", error.message);
-      }
+      console.error("Error during email sign in:", error);
     }
   };
 
-  // Anonymous sign-in handler
-  const handleAnonymousSignIn = () => {
-    signInAnonymouslyUser();
+  // Handle anonymous sign-in
+  const handleAnonymousSignIn = async () => {
+    try {
+      const userCredential = await signInAnonymouslyUser();
+      console.log("Logged in anonymously:", userCredential);
+      navigate("/dashboard"); // Redirect to dashboard after successful login
+    } catch (error) {
+      console.error("Error during anonymous sign in:", error);
+    }
   };
 
   return (
