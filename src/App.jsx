@@ -1,12 +1,11 @@
 import React, { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
-
 // Lazy load the components
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Signup = lazy(() => import("./pages/Signup"))
+const Signup = lazy(() => import("./pages/Signup"));
 
 const App = () => {
   return (
@@ -15,7 +14,7 @@ const App = () => {
       <img
         src="/images/table.png"
         alt="Casino Table Background"
-        className="absolute inset-0 w-full h-full object-contain z-0"
+        className="absolute inset-0 w-full h-full object-contain z-0 px-20 xl:px-80"
       />
 
       {/* Overlay Content */}

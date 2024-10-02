@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase"; // Ensure you have your Firebase config set up
 import { signOut } from "firebase/auth";
-import { Nav } from "/src/components/navbar/NavBar";
+import LiquidSideNav from "../components/navbar/NavBar";
+
 import Loader from "../components/loader/Loader";
 
 const Dashboard = () => {
@@ -25,57 +26,38 @@ const Dashboard = () => {
     return () => unsubscribe();
   }, [navigate]);
 
-  // Handle logout
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/login"); // Redirect to login after signout
-    } catch (error) {
-      console.error("Error logging out: ", error);
-    }
-  };
-
   if (loading) {
     return (
       <>
-        <h2 className="text-4xl text-casinoGold mb-8 font-pixel">
-          Ramsch Royal
-        </h2>
-        <p className="text-lg">Loading user data...</p>
+        <Loader />
       </>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md text-center">
-        <h2 className="text-4xl text-casinoGold  font-pixel">Ramsch Royal</h2>
-        <p className="text-lg text-white">
-          Welcome,{" "}
-          <span className="font-bold">
-            {user.isAnonymous ? "Anonymous User" : user.email}
-          </span>
-        </p>
-        {/**Game Select  */}
-        <div>
-          <button>Create Game</button>
-          <button>Join Game</button>
+    <>
+      <LiquidSideNav />
+      <div className="min-h-screen flex flex-col justify-center items-center p-4">
+        <div className="w-full max-w-md text-center">
+          <h2 className="text-4xl text-casinoGold  font-pixel">Ramsch Royal</h2>
+          <p className="text-lg text-white font-pixel">
+            Welcome,{" "}
+            <span className="font-pixel ">
+              {user.isAnonymous ? "Anonymous User" : user.email}
+            </span>
+          </p>
+          {/**Game Select  */}
+          <div className="flex justify-center items-center space-x-4 py-3">
+            <button className="text-sm font-pixel bg-green-700 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md py-2 px-4">
+              Create Game
+            </button>
+            <button className="text-sm font-pixel bg-green-700 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md py-2 px-4">
+              Join Game
+            </button>
+          </div>
         </div>
-
-        <Loader />
-
-        {/** FOR TESTING */}
-        <button
-          onClick={handleLogout}
-          className="w-full mt-4 bg-red-500 text-white py-2 rounded-md shadow-md hover:bg-red-600 transition duration-200"
-        >
-          Logout
-        </button>
       </div>
-
-      {/* Include Nav */}
-      <Nav />
-    </div>
+    </>
   );
 };
 

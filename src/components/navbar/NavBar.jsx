@@ -1,211 +1,147 @@
-// src/components/navbar/NavBar.jsx
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiX } from "react-icons/fi";
+import { signOutUser } from "../../firebase/firebase";
+import { useNavigate } from "react-router-dom";
+import ProfileIcon from "../user/IconGen";
 
-export const Nav = () => {
-  // Named export
-  const [active, setActive] = useState(false);
+const LiquidSideNav = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // Handle Logout and redirect to the login page
+  const handleLogout = async () => {
+    try {
+      await signOutUser(); // Call the Firebase sign-out function
+      console.log("User logged out successfully");
+      navigate("/login"); // Redirect to the login page after logout
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
   return (
     <>
-      <HamburgerButton active={active} setActive={setActive} />
-      <AnimatePresence>{active && <LinksOverlay />}</AnimatePresence>
+      {/* Button to open the navigation */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            key="menuButton"
+            onClick={() => setIsOpen(true)}
+            className="fixed top-8 right-8 z-50 bg-indigo-500 text-white text-3xl rounded-full shadow-lg hover:bg-indigo-400 transition-colors"
+            style={{ padding: 0, width: 60, height: 60 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ProfileIcon size={60} clickable={true} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* The sliding navigation */}
+      <Nav isOpen={isOpen} setIsOpen={setIsOpen} onLogout={handleLogout} />
     </>
   );
 };
 
-const LinksOverlay = () => {
+const Nav = ({ isOpen, setIsOpen, onLogout }) => {
   return (
-    <nav className="fixed right-4 top-4 z-40 h-[calc(100vh_-_32px)] w-[calc(100%_-_32px)] overflow-hidden">
-      <Logo />
-      <LinksContainer />
-      <FooterCTAs />
-    </nav>
-  );
-};
-
-const LinksContainer = () => {
-  return (
-    <motion.div className="space-y-4 p-12 pl-4 md:pl-20">
-      {LINKS.map((l, idx) => (
-        <NavLink key={l.title} href={l.href} idx={idx}>
-          {l.title}
-        </NavLink>
-      ))}
-    </motion.div>
-  );
-};
-
-const NavLink = ({ children, href, idx }) => {
-  return (
-    <motion.a
-      initial={{ opacity: 0, y: -8 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        transition: {
-          delay: 0.75 + idx * 0.125,
-          duration: 0.5,
-          ease: "easeInOut",
-        },
-      }}
-      exit={{ opacity: 0, y: -8 }}
-      href={href}
-      className="block text-5xl font-semibold text-violet-400 transition-colors hover:text-violet-50 md:text-7xl"
+    <motion.nav
+      className="fixed top-0 bottom-0 w-screen bg-white shadow-lg z-40"
+      animate={isOpen ? "open" : "closed"}
+      variants={navVariants}
+      initial="closed"
     >
-      {children}.
-    </motion.a>
-  );
-};
-
-const Logo = () => {
-  return (
-    <motion.a
-      initial={{ opacity: 0, y: -12 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        transition: { delay: 0.5, duration: 0.5, ease: "easeInOut" },
-      }}
-      exit={{ opacity: 0, y: -12 }}
-      href="/dashboard"
-      className="grid h-20 w-20 place-content-center rounded-br-xl rounded-tl-xl bg-white transition-colors hover:bg-violet-50"
-    >
-      <img src="./logo.ico" alt="" className="w-16" />
-    </motion.a>
-  );
-};
-
-const HamburgerButton = ({ active, setActive }) => {
-  return (
-    <>
-      <motion.div
-        initial={false}
-        animate={active ? "open" : "closed"}
-        variants={UNDERLAY_VARIANTS}
-        style={{ top: 16, right: 16 }}
-        className="fixed z-10 rounded-xl bg-gradient-to-br from-violet-600 to-violet-500 shadow-lg shadow-violet-800/20"
-      />
-
+      {/* Close button */}
       <motion.button
-        initial={false}
-        animate={active ? "open" : "closed"}
-        onClick={() => setActive((pv) => !pv)}
-        className={`group fixed right-4 top-4 z-50 h-20 w-20 bg-white/0 transition-all hover:bg-white/20 ${
-          active ? "rounded-bl-xl rounded-tr-xl" : "rounded-xl"
-        }`}
+        className="text-3xl bg-white text-black hover:text-indigo-500 border-[1px] border-transparent hover:border-indigo-500 transition-colors rounded-full absolute top-8 right-8"
+        style={{
+          padding: 0,
+          width: 60,
+          height: 60,
+          display: "flex", // Use flexbox
+          justifyContent: "center", // Center horizontally
+          alignItems: "center", // Center vertically
+        }}
+        whileHover={{ rotate: "180deg" }}
+        onClick={() => setIsOpen(false)}
+        whileTap={{ scale: 0.9 }}
       >
-        <motion.span
-          variants={HAMBURGER_VARIANTS.top}
-          className="absolute block h-1 w-10 bg-white"
-          style={{ y: "-50%", left: "50%", x: "-50%" }}
-        />
-        <motion.span
-          variants={HAMBURGER_VARIANTS.middle}
-          className="absolute block h-1 w-10 bg-white"
-          style={{ left: "50%", x: "-50%", top: "50%", y: "-50%" }}
-        />
-        <motion.span
-          variants={HAMBURGER_VARIANTS.bottom}
-          className="absolute block h-1 w-5 bg-white"
-          style={{ x: "-50%", y: "50%" }}
-        />
+        <FiX size={40} />
       </motion.button>
-    </>
+
+      {/* Navigation Links */}
+      <motion.div
+        variants={linkWrapperVariants}
+        className="flex flex-col gap-8 absolute bottom-20 left-10"
+      >
+        <NavLink text="Home" />
+        <NavLink text="Work" />
+        <NavLink text="Careers" />
+        <NavLink text="Contact" />
+        <NavLink text="Logout" onClick={onLogout} />{" "}
+        {/* Logout link with sign out */}
+      </motion.div>
+    </motion.nav>
   );
 };
 
-const FooterCTAs = () => {
+// Reusable NavLink component
+const NavLink = ({ text, onClick }) => {
   return (
-    <motion.button
-      initial={{ opacity: 0, y: 8 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        transition: {
-          delay: 1.125,
-          duration: 0.5,
-          ease: "easeInOut",
-        },
-      }}
-      exit={{ opacity: 0, y: 8 }}
-      className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-violet-700 px-3 py-3 text-4xl uppercase text-violet-200 transition-colors hover:bg-white hover:text-violet-600 md:bottom-4 md:right-4 md:px-6 md:text-2xl"
+    <motion.a
+      className="inline-block z-10 text-slate-800 font-black text-5xl hover:text-indigo-500 transition-colors"
+      onClick={onClick}
+      rel="nofollow"
+      href="#"
     >
-      <span className="hidden md:block">contact us</span> <FiArrowRight />
-    </motion.button>
+      {text}
+    </motion.a>
   );
 };
 
-// The links for navigation
-const LINKS = [
-  {
-    title: "home",
-    href: "#",
-  },
-  {
-    title: "features",
-    href: "#",
-  },
-  {
-    title: "blog",
-    href: "#",
-  },
-  {
-    title: "careers",
-    href: "#",
-  },
-];
+export default LiquidSideNav;
 
-// Underlay animation variants
-const UNDERLAY_VARIANTS = {
+const navVariants = {
   open: {
-    width: "calc(100% - 32px)",
-    height: "calc(100vh - 32px)",
-    transition: { type: "spring", mass: 3, stiffness: 400, damping: 50 },
+    x: "0%",
+    borderTopLeftRadius: "0vw",
+    borderBottomLeftRadius: "0vw",
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+    },
   },
   closed: {
-    width: "80px",
-    height: "80px",
+    x: "100%",
+    borderTopLeftRadius: "50vw",
+    borderBottomLeftRadius: "50vw",
+    opacity: 0,
     transition: {
-      delay: 0.75,
       type: "spring",
-      mass: 3,
-      stiffness: 400,
-      damping: 50,
+      stiffness: 100,
     },
   },
 };
 
-// Hamburger button animation variants
-const HAMBURGER_VARIANTS = {
-  top: {
-    open: {
-      rotate: ["0deg", "0deg", "45deg"],
-      top: ["35%", "50%", "50%"],
-    },
-    closed: {
-      rotate: ["45deg", "0deg", "0deg"],
-      top: ["50%", "50%", "35%"],
+const linkWrapperVariants = {
+  open: {
+    transition: {
+      staggerChildren: 0.1,
     },
   },
-  middle: {
-    open: {
-      rotate: ["0deg", "0deg", "-45deg"],
-    },
-    closed: {
-      rotate: ["-45deg", "0deg", "0deg"],
+  closed: {
+    transition: {
+      staggerChildren: 0.1,
     },
   },
-  bottom: {
-    open: {
-      rotate: ["0deg", "0deg", "45deg"],
-      bottom: ["35%", "50%", "50%"],
-      left: "50%",
-    },
-    closed: {
-      rotate: ["45deg", "0deg", "0deg"],
-      bottom: ["50%", "50%", "35%"],
-      left: "calc(50% + 10px)",
-    },
-  },
+};
+
+const navLinkVariants = {
+  open: { x: 0 },
+  closed: { x: 25 },
 };
