@@ -2,10 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {
-  signInWithEmailPassword,
-  signInAnonymouslyUser,
-} from "../firebase/firebase";
 import { Link, useNavigate } from "react-router-dom";
 
 import { FaGoogle, FaYahoo, FaPhoneAlt } from "react-icons/fa";
@@ -29,9 +25,13 @@ const schema = yup.object().shape({
     .string()
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
 });
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -41,28 +41,13 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  // Handle email/password login
+  // Handle sign-up
   const onSubmit = async (data) => {
     try {
-      const userCredential = await signInWithEmailPassword(
-        data.email,
-        data.password
-      );
-      console.log("Logged in successfully:", userCredential);
-      navigate("/dashboard"); // Redirect to dashboard after successful login
+      console.log("Signed up successfully:", data);
+      navigate("/dashboard"); // Redirect to dashboard after successful signup
     } catch (error) {
-      console.error("Error during email sign in:", error);
-    }
-  };
-
-  // Handle anonymous sign-in
-  const handleAnonymousSignIn = async () => {
-    try {
-      const userCredential = await signInAnonymouslyUser();
-      console.log("Logged in anonymously:", userCredential);
-      navigate("/dashboard"); // Redirect to dashboard after successful login
-    } catch (error) {
-      console.error("Error during anonymous sign in:", error);
+      console.error("Error during sign up:", error);
     }
   };
 
@@ -70,7 +55,7 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md shadow-lg rounded-lg p-8">
         <h2 className="text-5xl text-casinoGold mb-8 font-pixel text-center">
-          Login
+          Sign Up
         </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -104,17 +89,31 @@ const Login = () => {
             )}
           </div>
 
-          {/* Login Button */}
+          <div>
+            <input
+              type="password"
+              {...register("confirmPassword")}
+              placeholder="Confirm Password"
+              className="bg-[#222630] px-4 py-3 outline-none w-full text-white rounded-lg border-2 transition-colors duration-100 border-solid focus:border-[#596A95] border-[#2B3040]"
+            />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.confirmPassword.message}
+              </p>
+            )}
+          </div>
+
+          {/* Sign Up Button */}
           <button
             type="submit"
             className="text-sm font-pixel bg-green-700 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md py-2"
           >
-            Login
+            Sign Up
           </button>
 
           <div className="text-center">
-            <Link to="/signup" className="text-blue-500 hover:underline">
-              Don't have an account? Sign Up
+            <Link to="/login" className="text-blue-500 hover:underline">
+              Already have an account? Log In
             </Link>
           </div>
         </form>
@@ -122,7 +121,7 @@ const Login = () => {
         {/* Button container */}
         <div className="flex justify-center   w-full">
           <button
-            onClick={handleAnonymousSignIn}
+            onClick={() => console.log("Anonymous sign-in")}
             className="text-sm font-pixel bg-gray-500 text-white border-4 border-dashed border-white font-bold uppercase flex justify-center items-center w-16 h-10 rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md"
           >
             <IoPersonCircleSharp size={24} />
@@ -169,4 +168,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

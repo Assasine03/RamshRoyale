@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./css/index.css";
 import './firebase/firebase.js';
-import './firebase/database.js';
+//import './firebase/database.js';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
