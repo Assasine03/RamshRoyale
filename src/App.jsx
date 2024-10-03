@@ -6,6 +6,8 @@ const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Signup = lazy(() => import("./pages/Signup"));
+const JoinGame = lazy(() => import("./pages/JoinGame"));
+const CreateGame = lazy(() => import("./pages/CreateGame"));
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/joingame" element={<JoinGame />} />
+            <Route path="/creategame" element={<CreateGame />} />
           </Routes>
         </Suspense>
       </div>

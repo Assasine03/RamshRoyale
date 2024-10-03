@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { auth } from "../firebase/firebase"; // Ensure you have your Firebase config set up
-import { signOut } from "firebase/auth";
 import LiquidSideNav from "../components/navbar/NavBar";
 
 import Loader from "../components/loader/Loader";
@@ -48,12 +47,18 @@ const Dashboard = () => {
           </p>
           {/**Game Select  */}
           <div className="flex justify-center items-center space-x-4 py-3">
-            <button className="text-sm font-pixel bg-green-700 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md py-2 px-4">
+            <Link
+              to="/creategame"
+              className="text-sm font-pixel bg-green-700 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md py-2 px-4"
+            >
               Create Game
-            </button>
-            <button className="text-sm font-pixel bg-green-700 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md py-2 px-4">
+            </Link>
+            <Link
+              to="/joingame"
+              className="text-sm font-pixel bg-green-700 text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md py-2 px-4"
+            >
               Join Game
-            </button>
+            </Link>
           </div>
         </div>
       </div>
