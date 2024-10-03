@@ -78,10 +78,6 @@ const Nav = ({ isOpen, setIsOpen, onLogout }) => {
         variants={linkWrapperVariants}
         className="flex flex-col gap-8 absolute bottom-20 left-10"
       >
-        <NavLink text="Home" />
-        <NavLink text="Work" />
-        <NavLink text="Careers" />
-        <NavLink text="Contact" />
         <NavLink text="Logout" onClick={onLogout} />{" "}
         {/* Logout link with sign out */}
       </motion.div>
