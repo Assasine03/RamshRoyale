@@ -45,30 +45,32 @@ const CreateGame = () => {
           {/* Toggle icon */}
         </button>
       </div>
-      <div className="grid grid-cols-4 grid-rows-2 gap-4 justify-center items-center">
-        <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-          {/* Content inside each square */}
-        </div>
-        <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-          {/* Content inside each square */}
-        </div>
-        <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-          {/* Content inside each square */}
-        </div>
-        <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-          {/* Content inside each square */}
-        </div>
-        <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-          {/* Content inside each square */}
-        </div>
-        <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-          {/* Content inside each square */}
-        </div>
-        <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-          {/* Content inside each square */}
-        </div>
-        <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-          {/* Content inside each square */}
+      <div className="flex justify-center items-center h-36">
+        <div className="grid grid-cols-4 grid-rows-2 gap-4">
+          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
+            {/* Content */}
+          </div>
+          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
+            {/* Content */}
+          </div>
+          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
+            {/* Content */}
+          </div>
+          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
+            {/* Content */}
+          </div>
+          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
+            {/* Content */}
+          </div>
+          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
+            {/* Content */}
+          </div>
+          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
+            {/* Content */}
+          </div>
+          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
+            {/* Content */}
+          </div>
         </div>
       </div>
 
