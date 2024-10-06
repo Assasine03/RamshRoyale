@@ -1,6 +1,7 @@
 // firebase.js
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, signInAnonymously, signOut } from 'firebase/auth';
+import { getFirestore } from "firebase/firestore";
 //import {testDB } from './database.js';
 
 // Firebase configuration
@@ -24,6 +25,7 @@ var userData = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app)
 
 function ChangeLocalUserCredentials(userCredential){
   var user = userCredential.user
