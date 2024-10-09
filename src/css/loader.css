@@ -1,4 +1,11 @@
-/* From Uiverse.io by StealthWorm */ 
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height for vertical centering */
+}
+
 .loader {
   display: flex;
   position: relative;
@@ -49,6 +56,7 @@
   animation: scroll-down 3s infinite ease-in-out;
   animation-delay: 3s;
 }
+
 
 .love {
   background: red;
@@ -154,12 +162,10 @@
     transform: translateY(0);
     filter: blur(0);
   }
-
   30% {
     transform: translateY(-150%);
     filter: blur(10px);
   }
-
   60% {
     transform: translateY(0);
     filter: blur(0px);
@@ -184,6 +190,7 @@
 }
 
 @keyframes rotation {
+
   20%, 100% {
     transform: rotate(180deg);
   }
@@ -202,3 +209,10 @@
     height: 12px;
   }
 }
+
+  20%,
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
