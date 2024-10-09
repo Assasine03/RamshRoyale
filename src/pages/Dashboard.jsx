@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth } from "../firebase/firebase"; // Ensure you have your Firebase config set up
 import LiquidSideNav from "../components/navbar/NavBar";
-
 import Loader from "../components/loader/Loader";
 
 const Dashboard = () => {
@@ -25,6 +24,16 @@ const Dashboard = () => {
     return () => unsubscribe();
   }, [navigate]);
 
+  // Define the handleLogout function
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      navigate("/login"); // Redirect to login after logout
+    } catch (error) {
+      console.error("Error logging out: ", error);
+    }
+  };
+
   if (loading) {
     return (
       <>
@@ -38,7 +47,7 @@ const Dashboard = () => {
       <LiquidSideNav />
       <div className="min-h-screen flex flex-col justify-center items-center p-4">
         <div className="w-full max-w-md text-center">
-          <h2 className="text-4xl text-casinoGold  font-pixel">Ramsch Royal</h2>
+          <h2 className="text-4xl text-casinoGold font-pixel">Ramsch Royal</h2>
           <p className="text-lg text-white font-pixel">
             Welcome,{" "}
             <span className="font-pixel ">
@@ -65,11 +74,10 @@ const Dashboard = () => {
         {/** FOR TESTING */}
         <button
           onClick={handleLogout}
-          className="w-full mt-4 bg-red-500 text-white py-2 rounded-md shadow-md hover:bg-red-600 transition duration-200"
+          className="text-sm font-pixel bg-red-500 hover:bg-red-600  text-white border-4 border-dashed border-white font-bold uppercase text-center flex justify-center items-center rounded-full shadow-lg transition transform duration-150 hover:scale-110 hover:shadow-xl active:scale-95 active:shadow-md py-2 px-4"
         >
           Logout
         </button>
-
       </div>
     </>
   );

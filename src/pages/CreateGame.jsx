@@ -79,16 +79,6 @@ const CreateGame = () => {
         </button>
       </div>
 
-      <div className="flex justify-center items-center h-36">
-        <div className="grid grid-cols-4 grid-rows-2 gap-4">
-          {/* Placeholder content */}
-          <div className="bg-black bg-opacity-50 w-16 h-16 rounded-lg flex justify-center items-center">
-            {/* Content */}
-          </div>
-          {/* Add additional content here */}
-        </div>
-      </div>
-
       {/* Start Game Button */}
       <button
         onClick={handleStartGame} // On click, create the game and navigate
