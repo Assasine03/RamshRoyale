@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"; // Correct import for useParams
 import { doc, getDoc, updateDoc } from "firebase/firestore"; // Firestore functions
 import { db } from "../firebase/firebase"; // Import the Firestore instance
 
-// Utility function to create a deck of cards with image filenames
+// Utility function to create a deck of cards with correct image filenames
 const createDeck = () => {
   const suits = ["P", "H", "D", "C"]; // P = Spades, H = Hearts, D = Diamonds, C = Clubs
   const values = [
@@ -24,10 +24,11 @@ const createDeck = () => {
   const deck = [];
   for (let suit of suits) {
     for (let value of values) {
+      // Correct image path format: X-X.png (e.g., 2-P.png, A-H.png)
       deck.push({
         value,
         suit,
-        image: `assets/cards/card_deck_3/light/${value}-${suit}.png`,
+        image: `assets/cards/card_deck_3/light/${value}-${suit}.png`, // No leading slash
       });
     }
   }
@@ -162,7 +163,7 @@ const Game = () => {
                 <img
                   key={index}
                   src={card.image}
-                  alt={`${card.value}${card.suit}`}
+                  alt={`${card.value}-${card.suit}`}
                   width="50"
                 />
               ))
@@ -194,7 +195,7 @@ const Game = () => {
               <img
                 key={index}
                 src={card.image}
-                alt={`${card.value}${card.suit}`}
+                alt={`${card.value}-${card.suit}`}
                 width="50"
               />
             ))}
