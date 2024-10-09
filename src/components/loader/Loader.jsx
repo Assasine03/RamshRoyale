@@ -1,28 +1,47 @@
 import React from "react";
-import { FaHeart } from "react-icons/fa";
-import { BsFillSuitSpadeFill } from "react-icons/bs";
-import { GiClubs } from "react-icons/gi";
-import "/src/css/loader.css";
 
-const icons = [
-  { IconComponent: FaHeart, className: "love" },
-  { IconComponent: BsFillSuitSpadeFill, className: "death" },
-  { IconComponent: GiClubs, className: "robots" },
-];
+import { motion } from "framer-motion";
+import "../../css/loader.css";
+import { div } from "framer-motion/client";
 
 const Loader = () => {
   return (
-    <div className="loader-wrapper">
+    /* From Uiverse.io by StealthWorm */
+    <div className="flex justify-center">
       <div className="loader">
-        {icons.map(({ IconComponent, className }, index) => (
-          <div className="container" key={index}>
-            <div className="carousel">
-              {[...Array(7)].map((_, i) => (
-                <IconComponent key={i} className={`icon ${className}`} />
-              ))}
-            </div>
+        <div className="container">
+          <div className="carousel">
+            <div className="love"></div>
+            <div className="love"></div>
+            <div className="love"></div>
+            <div className="love"></div>
+            <div className="love"></div>
+            <div className="love"></div>
+            <div className="love"></div>
           </div>
-        ))}
+        </div>
+        <div className="container">
+          <div className="carousel">
+            <div className="death"></div>
+            <div className="death"></div>
+            <div className="death"></div>
+            <div className="death"></div>
+            <div className="death"></div>
+            <div className="death"></div>
+            <div className="death"></div>
+          </div>
+        </div>
+        <div className="container">
+          <div className="carousel">
+            <div className="robots"></div>
+            <div className="robots"></div>
+            <div className="robots"></div>
+            <div className="robots"></div>
+            <div className="robots"></div>
+            <div className="robots"></div>
+            <div className="robots"></div>
+          </div>
+        </div>
       </div>
     </div>
   );

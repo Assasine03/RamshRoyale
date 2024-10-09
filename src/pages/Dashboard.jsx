@@ -61,6 +61,15 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
+
+        {/** FOR TESTING */}
+        <button
+          onClick={handleLogout}
+          className="w-full mt-4 bg-red-500 text-white py-2 rounded-md shadow-md hover:bg-red-600 transition duration-200"
+        >
+          Logout
+        </button>
+
       </div>
     </>
   );
