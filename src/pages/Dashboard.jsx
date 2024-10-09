@@ -62,8 +62,6 @@ const Dashboard = () => {
           <button>Join Game</button>
         </div>
 
-        <Loader />
-
         {/** FOR TESTING */}
         <button
           onClick={handleLogout}
